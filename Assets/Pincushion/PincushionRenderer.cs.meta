@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8ad54a7ed071d40bd8ebe224449387f1
+timeCreated: 1452070007
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - _mesh: {fileID: 11400000, guid: f22c2dfd866704dada5f5967a99197d4, type: 2}
+  - _albedoTexture: {instanceID: 0}
+  - _normalTexture: {instanceID: 0}
+  - _surfaceShader: {fileID: 4800000, guid: 5620bac1c08e849ad8d629ddecdd6f49, type: 3}
+  - _lineShader: {fileID: 4800000, guid: 415e989f8f02448578acadaaca927459, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
