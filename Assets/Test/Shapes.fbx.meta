@@ -1,39 +1,34 @@
 fileFormatVersion: 2
-guid: 9693308a3efbb4f70b2e2ca1df26b2e9
-timeCreated: 1449461373
+guid: 26d197c3f6bf0445e9a95e3627ee4aa1
+timeCreated: 1452087355
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Icosphere
+    100000: Cube
+    100002: Dodecahedron
     100004: ipr_camera
-    100006: Ring
-    100008: Disc
-    100010: Ring1
-    100012: Ring2
-    400000: //RootNode
-    400002: Icosphere
+    100006: //RootNode
+    100008: Sphere
+    100010: Tetrahedron
+    400000: Cube
+    400002: Dodecahedron
     400004: ipr_camera
-    400006: Ring
-    400008: Disc
-    400010: Ring1
-    400012: Ring2
-    2300000: Icosphere
-    2300002: Ring
-    2300004: Disc
-    2300006: Ring1
-    2300008: Ring2
-    3300000: Icosphere
-    3300002: Ring
-    3300004: Disc
-    3300006: Ring1
-    3300008: Ring2
-    4300000: Icosphere
-    4300002: Ring
-    4300004: Ring1
-    4300006: Ring2
-    4300008: Disc
+    400006: //RootNode
+    400008: Sphere
+    400010: Tetrahedron
+    2300000: Cube
+    2300002: Dodecahedron
+    2300004: Sphere
+    2300006: Tetrahedron
+    3300000: Cube
+    3300002: Dodecahedron
+    3300004: Sphere
+    3300006: Tetrahedron
+    4300000: Cube
+    4300002: Sphere
+    4300004: Tetrahedron
+    4300006: Dodecahedron
   materials:
     importMaterials: 0
     materialName: 0

@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 2
-  _scale: 1
+  _scale: .5
   _noiseAmplitude: .100000001
   _noiseFrequency: 6
   _noiseMotion: .300000012
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 2
-  _scale: 1
+  _scale: .5
   _noiseAmplitude: .100000001
   _noiseFrequency: 6
   _noiseMotion: .300000012
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 2
-  _scale: 1
+  _scale: .5
   _noiseAmplitude: .100000001
   _noiseFrequency: 6
   _noiseMotion: .300000012
