@@ -35,12 +35,11 @@
         void vert(inout appdata_full v)
         {
             float2 uv = v.texcoord1.xy;
-
             float4 rot = get_rotation(uv);
-            float l = _Radius;
 
-            float3 vp = v.vertex.xyz;
-            vp = rotate_vector(vp * _Scale + float3(0, 0, l), rot);
+            float3 vp = v.vertex.xyz * _Scale;
+            vp += float3(0, 0, _Radius);
+            vp = rotate_vector(vp, rot);
             vp += get_displacement(uv);
 
             v.vertex.xyz = vp;

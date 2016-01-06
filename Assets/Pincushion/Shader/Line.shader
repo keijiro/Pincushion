@@ -24,14 +24,14 @@
 
         void vert(inout appdata_full v)
         {
-            float2 uv = v.texcoord1.xy;
+            float2 uv = float2(v.texcoord1.x, 0);
+            float sw = v.texcoord1.y;
+            float4 rot = get_rotation(uv);
 
-            float4 rot = random_rotation(float2(uv.x, 0));
-            float l = _Radius * uv.y;
-
-            float3 vp = v.vertex.xyz;
-            vp = rotate_vector(float3(0, 0, l), rot);
-            vp += get_displacement(float2(uv.x, 0)) * uv.y;
+            float3 vp = v.vertex.xyz * _Scale;
+            vp += float3(0, 0, _Radius * sw);
+            vp = rotate_vector(vp, rot);
+            vp += get_displacement(uv) * sw;
 
             v.vertex.xyz = vp;
         }
