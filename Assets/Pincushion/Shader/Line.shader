@@ -27,9 +27,10 @@
             float2 uv = float2(v.texcoord1.x, 0);
             float sw = v.texcoord1.y;
             float4 rot = get_rotation(uv);
+            float rnd = random_factor(uv);
 
-            float3 vp = v.vertex.xyz * _Scale;
-            vp += float3(0, 0, _Radius * sw);
+            float3 vp = v.vertex.xyz * _Scale * rnd;
+            vp += float3(0, 0, _Radius * rnd * sw);
             vp = rotate_vector(vp, rot);
             vp += get_displacement(uv) * sw;
 

@@ -9,6 +9,7 @@ namespace Pincushion
 
         [SerializeField] float _radius = 5;
         [SerializeField] float _scale = 0.05f;
+        [SerializeField, Range(0, 1)] float _randomness = 0.1f;
 
         [Space]
         [SerializeField] float _noiseAmplitude = 0.2f;
@@ -93,6 +94,7 @@ namespace Pincushion
 
             _materialProps.SetFloat("_Radius", _radius);
             _materialProps.SetFloat("_Scale", _scale);
+            _materialProps.SetFloat("_Random", _randomness);
             _materialProps.SetFloat("_NoiseAmp", _noiseAmplitude);
             _materialProps.SetFloat("_NoiseFreq", _noiseFrequency);
             _materialProps.SetVector("_NoiseOffs", _noiseOffset);

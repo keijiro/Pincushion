@@ -36,9 +36,10 @@
         {
             float2 uv = v.texcoord1.xy;
             float4 rot = get_rotation(uv);
+            float rnd = random_factor(uv);
 
-            float3 vp = v.vertex.xyz * _Scale;
-            vp += float3(0, 0, _Radius);
+            float3 vp = v.vertex.xyz * _Scale * rnd;
+            vp += float3(0, 0, _Radius * rnd);
             vp = rotate_vector(vp, rot);
             vp += get_displacement(uv);
 

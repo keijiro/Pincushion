@@ -46,6 +46,7 @@ float4 random_rotation(float2 uv)
 // Common uniforms
 float _Radius;
 float _Scale;
+float _Random;
 float _NoiseAmp;
 float _NoiseFreq;
 float3 _NoiseOffs;
@@ -58,4 +59,9 @@ float4 get_rotation(float2 uv)
 float3 get_displacement(float2 uv)
 {
     return snoise_grad(float3(uv, 0) * _NoiseFreq + _NoiseOffs) * _NoiseAmp;
+}
+
+float random_factor(float2 uv)
+{
+    return 1 - nrand(uv, 1) * _Random;
 }
