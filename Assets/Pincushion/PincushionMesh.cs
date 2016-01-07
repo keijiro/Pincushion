@@ -52,7 +52,7 @@ namespace Pincushion
 
             for (var i_pin = 0; i_pin < _pinCount; i_pin++)
             {
-                var uv1 = new Vector2((float)i_pin / _pinCount, 0);
+                var uv1 = new Vector2((float)i_pin / _pinCount, 1);
 
                 for (var i_src = 0; i_src < vtx_src.Length; i_src++)
                 {
@@ -76,8 +76,8 @@ namespace Pincushion
                 uv0_tmp.Add(Vector2.zero);
                 uv0_tmp.Add(Vector2.zero);
 
+                uv1_tmp.Add(new Vector2(uv1.x, 0));
                 uv1_tmp.Add(uv1);
-                uv1_tmp.Add(new Vector2(uv1.x, 1));
             }
 
             var idx_src = _sourceMesh.GetIndices(0);

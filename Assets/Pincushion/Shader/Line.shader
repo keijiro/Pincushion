@@ -17,22 +17,18 @@
         #include "Common.cginc"
 
         struct Input {
-            float2 uv_MainTex;
+            float dummy;
         };
 
         half4 _Color;
 
         void vert(inout appdata_full v)
         {
-            float2 uv = float2(v.texcoord1.x, 0);
-            float sw = v.texcoord1.y;
-            float4 rot = get_rotation(uv);
-            float rnd = random_factor(uv);
+            float2 uv = v.texcoord1.xy;
+            float3 vp = v.vertex.xyz;
+            float4 rot = random_rotation(uv);
 
-            float3 vp = v.vertex.xyz * _Scale * rnd;
-            vp += float3(0, 0, _Radius * rnd * sw);
-            vp = rotate_vector(vp, rot);
-            vp += get_displacement(uv) * sw;
+            vp = rotate_vector(base_transform(vp, uv), rot) + displacement(uv);
 
             v.vertex.xyz = vp;
         }

@@ -7,8 +7,8 @@ namespace Pincushion
     {
         #region Exposed Properties
 
-        [SerializeField] float _radius = 5;
-        [SerializeField] float _scale = 0.05f;
+        [SerializeField] float _radius = 5.0f;
+        [SerializeField] float _scale = 1.0f;
         [SerializeField, Range(0, 1)] float _randomness = 0.1f;
 
         [Space]
@@ -35,6 +35,9 @@ namespace Pincushion
         [Space]
         [SerializeField] Color _lineColor = Color.white;
 
+        [Space]
+        [SerializeField] int _randomSeed;
+
         [SerializeField, HideInInspector] Shader _surfaceShader;
         [SerializeField, HideInInspector] Shader _lineShader;
 
@@ -44,69 +47,68 @@ namespace Pincushion
 
         Material _surfaceMaterial;
         Material _lineMaterial;
-
         MaterialPropertyBlock _materialProps;
         Vector3 _noiseOffset;
+
+        Vector3 RandomNoiseOffset {
+            get { return Vector3.one * (_randomSeed * 11.1f); }
+        }
 
         #endregion
 
         #region MonoBehaviour Functions
 
-        void Start()
+        void OnEnable()
         {
-            _noiseOffset = Random.insideUnitSphere * Random.Range(-100.0f, 100.0f);
+            // delay initialization when the assets are not ready yet
+            if (_surfaceShader == null) return;
+
+            _surfaceMaterial = new Material(_surfaceShader);
+            _surfaceMaterial.hideFlags = HideFlags.DontSave;
+
+            _lineMaterial = new Material(_lineShader);
+            _lineMaterial.hideFlags = HideFlags.DontSave;
+
+            if (_materialProps == null)
+                _materialProps = new MaterialPropertyBlock();
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
-            if (_surfaceMaterial) DestroyImmediate(_surfaceMaterial);
-            if (_lineMaterial) DestroyImmediate(_lineMaterial);
+            DestroyImmediate(_surfaceMaterial);
+            DestroyImmediate(_lineMaterial);
+            _materialProps = null;
         }
 
         void Update()
         {
+            if (_surfaceMaterial == null) OnEnable(); // delayed initialization
+
             _noiseOffset += Vector3.forward * (_noiseMotion * Time.deltaTime);
 
-            if (_surfaceMaterial == null)
-            {
-                _surfaceMaterial = new Material(_surfaceShader);
-                _surfaceMaterial.hideFlags = HideFlags.DontSave;
-            }
+            _surfaceMaterial
+                .Property("_Color", _color)
+                .Property("_MainTex", _albedoTexture)
+                .Property("_TexScale", _textureScale)
+                .Property("_Metallic", _metallic)
+                .Property("_Glossiness", _smoothness)
+                .Property("_NormalTex", _normalTexture)
+                .Property("_NormalScale", _normalScale);
 
-            if (_lineMaterial == null)
-            {
-                _lineMaterial = new Material(_lineShader);
-                _lineMaterial.hideFlags = HideFlags.DontSave;
-            }
+            _lineMaterial.Property("_Color", _lineColor);
 
-            if (_materialProps == null)
-                _materialProps = new MaterialPropertyBlock();
-
-            _surfaceMaterial.SetColor("_Color", _color);
-            _surfaceMaterial.SetTexture("_MainTex", _albedoTexture);
-            _surfaceMaterial.SetFloat("_TexScale", _textureScale);
-            _surfaceMaterial.SetFloat("_Metallic", _metallic);
-            _surfaceMaterial.SetFloat("_Glossiness", _smoothness);
-            _surfaceMaterial.SetTexture("_NormalTex", _normalTexture);
-            _surfaceMaterial.SetFloat("_NormalScale", _normalScale);
-
-            _lineMaterial.SetColor("_Color", _lineColor);
-
-            _materialProps.SetFloat("_Radius", _radius);
-            _materialProps.SetFloat("_Scale", _scale);
-            _materialProps.SetFloat("_Random", _randomness);
-            _materialProps.SetFloat("_NoiseAmp", _noiseAmplitude);
-            _materialProps.SetFloat("_NoiseFreq", _noiseFrequency);
-            _materialProps.SetVector("_NoiseOffs", _noiseOffset);
-
-            var mtx = transform.localToWorldMatrix;
+            _materialProps
+                .Property("_ScaleParams", _radius, _scale)
+                .Property("_RandomParams", _randomness, _randomSeed)
+                .Property("_NoiseParams", _noiseAmplitude, _noiseFrequency)
+                .Property("_NoiseOffs", _noiseOffset + RandomNoiseOffset);
 
             Graphics.DrawMesh(
-                _mesh.sharedMesh, mtx,
+                _mesh.sharedMesh, transform.localToWorldMatrix,
                 _surfaceMaterial, 0, null, 0, _materialProps);
 
             Graphics.DrawMesh(
-                _mesh.sharedMesh, mtx,
+                _mesh.sharedMesh, transform.localToWorldMatrix,
                 _lineMaterial, 0, null, 1, _materialProps);
         }
 
