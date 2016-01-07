@@ -5,7 +5,7 @@ namespace Pincushion
     [ExecuteInEditMode]
     public class PincushionRenderer : MonoBehaviour
     {
-        #region Exposed Properties
+        #region Editable Properties
 
         [SerializeField] float _radius = 5.0f;
         [SerializeField] float _scale = 1.0f;
@@ -40,6 +40,50 @@ namespace Pincushion
 
         [SerializeField, HideInInspector] Shader _surfaceShader;
         [SerializeField, HideInInspector] Shader _lineShader;
+
+        #endregion
+
+        #region Public Properties
+
+        public float radius {
+            get { return _radius; }
+            set { _radius = value; }
+        }
+
+        public float scale {
+            get { return _scale; }
+            set { _scale = value; }
+        }
+
+        public float randomness {
+            get { return _randomness; }
+            set { _randomness = value; }
+        }
+
+        public float noiseAmplitude {
+            get { return _noiseAmplitude; }
+            set { _noiseAmplitude = value; }
+        }
+
+        public float noiseFrequency {
+            get { return _noiseFrequency; }
+            set { _noiseFrequency = value; }
+        }
+
+        public float noiseMotion {
+            get { return _noiseMotion; }
+            set { _noiseMotion = value; }
+        }
+
+        public Color color {
+            get { return _color; }
+            set { _color = value; }
+        }
+
+        public Color lineColor {
+            get { return _lineColor; }
+            set { _lineColor = value; }
+        }
 
         #endregion
 
